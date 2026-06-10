@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { AppHeader } from "@/components/AppHeader";
 import { FilterBar } from "@/components/archivio/FilterBar";
-import { RullinoCard } from "@/components/archivio/RullinoCard";
+import { ArchivioView } from "@/components/archivio/ArchivioView";
 import {
   getRullini,
   getDistinctPellicole,
@@ -42,22 +42,7 @@ export default async function ArchivioPage({ searchParams }: PageProps) {
           <FilterBar pellicole={pellicole} fotocamere={fotocamere} current={filters} />
         </Suspense>
 
-        <p className="mt-4 mb-4 text-sm text-gray-400 dark:text-gray-500">
-          {rullini.length} {rullini.length === 1 ? "rullino" : "rullini"}
-        </p>
-
-        {rullini.length === 0 ? (
-          <div className="py-20 text-center text-gray-400 dark:text-gray-600">
-            <p className="text-4xl mb-3">○</p>
-            <p className="text-sm">Nessun rullino trovato</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {rullini.map((rullino) => (
-              <RullinoCard key={rullino.id} rullino={rullino} />
-            ))}
-          </div>
-        )}
+        <ArchivioView rullini={rullini} />
       </div>
     </main>
   );
