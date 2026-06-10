@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useTheme } from "@/components/ThemeProvider";
 
 export function AppHeader() {
@@ -7,9 +8,12 @@ export function AppHeader() {
 
   return (
     <header className="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-950 px-6 py-4 flex items-center justify-between">
-      <span className="font-mono text-base font-semibold tracking-tight text-gray-900 dark:text-white">
+      <Link
+        href="/"
+        className="font-mono text-base font-semibold tracking-tight text-gray-900 dark:text-white hover:opacity-70 transition-opacity"
+      >
         Analog Archive
-      </span>
+      </Link>
       <button
         type="button"
         onClick={toggle}
