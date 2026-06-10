@@ -12,12 +12,12 @@ interface StampaFormProps {
 }
 
 const inputClass =
-  "w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-100";
+  "w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-100 dark:focus:ring-gray-800";
 
 function Field({ label, name, children }: { label: string; name: string; children: React.ReactNode }) {
   return (
     <div>
-      <label htmlFor={name} className="mb-1 block text-sm font-medium text-gray-700">
+      <label htmlFor={name} className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
         {label}
       </label>
       {children}
@@ -41,7 +41,7 @@ function ChemRow({
 }) {
   return (
     <div className="contents">
-      <div className="flex items-center py-2 text-sm font-medium text-gray-700">{label}</div>
+      <div className="flex items-center py-2 text-sm font-medium text-gray-700 dark:text-gray-300">{label}</div>
       <div className="py-1">
         <input
           type="text"
@@ -85,7 +85,7 @@ export function StampaForm({ action, stampa, cancelHref }: StampaFormProps) {
     <form action={formAction} className="space-y-8">
       {/* RIFERIMENTI */}
       <section>
-        <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest text-gray-400">
+        <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
           Riferimenti
         </h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -123,7 +123,7 @@ export function StampaForm({ action, stampa, cancelHref }: StampaFormProps) {
 
       {/* INGRANDITORE */}
       <section>
-        <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest text-gray-400">
+        <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
           Ingranditore
         </h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -162,16 +162,16 @@ export function StampaForm({ action, stampa, cancelHref }: StampaFormProps) {
 
       {/* CHIMICA */}
       <section>
-        <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest text-gray-400">
+        <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
           Chimica camera oscura
         </h2>
         <div className="overflow-x-auto">
           <div className="grid min-w-[480px] grid-cols-[80px_1fr_90px_1fr] items-center gap-x-3">
             {/* Header */}
             <div />
-            <div className="py-1 text-xs font-medium text-gray-400">Prodotto</div>
-            <div className="py-1 text-xs font-medium text-gray-400">Temp. (°C)</div>
-            <div className="py-1 text-xs font-medium text-gray-400">Tempo</div>
+            <div className="py-1 text-xs font-medium text-gray-400 dark:text-gray-500">Prodotto</div>
+            <div className="py-1 text-xs font-medium text-gray-400 dark:text-gray-500">Temp. (°C)</div>
+            <div className="py-1 text-xs font-medium text-gray-400 dark:text-gray-500">Tempo</div>
             {/* Rows */}
             <ChemRow label="Sviluppo" prefix="svil" stampa={stampa} />
             <ChemRow label="Stop" prefix="stop" stampa={stampa} />
@@ -182,7 +182,7 @@ export function StampaForm({ action, stampa, cancelHref }: StampaFormProps) {
 
       {/* INTERVENTI E NOTE */}
       <section>
-        <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest text-gray-400">
+        <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
           Interventi e note
         </h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -210,17 +210,17 @@ export function StampaForm({ action, stampa, cancelHref }: StampaFormProps) {
       </section>
 
       {/* AZIONI */}
-      <div className="flex items-center gap-3 border-t border-gray-100 pt-6">
+      <div className="flex items-center gap-3 border-t border-gray-100 dark:border-gray-800 pt-6">
         <button
           type="submit"
           disabled={isPending}
-          className="rounded-lg bg-gray-900 px-5 py-2 text-sm font-medium text-white transition hover:bg-gray-700 disabled:opacity-50"
+          className="rounded-lg bg-gray-900 dark:bg-white px-5 py-2 text-sm font-medium text-white dark:text-gray-900 transition hover:bg-gray-700 dark:hover:bg-gray-100 disabled:opacity-50"
         >
           {isPending ? "Salvataggio…" : isEdit ? "Salva modifiche" : "Crea sessione"}
         </button>
         <Link
           href={cancelHref}
-          className="rounded-lg border border-gray-200 px-5 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-50"
+          className="rounded-lg border border-gray-200 dark:border-gray-700 px-5 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 transition hover:bg-gray-50 dark:hover:bg-gray-800"
         >
           Annulla
         </Link>

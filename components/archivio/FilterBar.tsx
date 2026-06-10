@@ -35,12 +35,10 @@ export function FilterBar({ pellicole, fotocamere, current }: FilterBarProps) {
     [router, buildUrl]
   );
 
-  // Sync local search state when URL changes (e.g. back/forward)
   useEffect(() => {
     setSearchValue(current.q ?? "");
   }, [current.q]);
 
-  // Debounce text search: 400ms
   useEffect(() => {
     const t = setTimeout(() => {
       if (searchValue !== (current.q ?? "")) {
@@ -60,12 +58,12 @@ export function FilterBar({ pellicole, fotocamere, current }: FilterBarProps) {
 
   return (
     <div
-      className={`rounded-xl border border-gray-200 bg-gray-50 p-4 transition-opacity ${isPending ? "opacity-60" : ""}`}
+      className={`rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 p-4 transition-opacity ${isPending ? "opacity-60" : ""}`}
     >
       {/* Ricerca testuale */}
       <div className="relative mb-4">
         <svg
-          className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400"
+          className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -77,12 +75,12 @@ export function FilterBar({ pellicole, fotocamere, current }: FilterBarProps) {
           placeholder="Cerca in scene, note, descrizioni…"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
-          className="w-full rounded-lg border border-gray-200 bg-white py-2 pl-10 pr-4 text-sm outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-200"
+          className="w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 py-2 pl-10 pr-4 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-700"
         />
         {searchValue && (
           <button
             onClick={() => setSearchValue("")}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
             aria-label="Cancella ricerca"
           >
             ×
@@ -92,15 +90,15 @@ export function FilterBar({ pellicole, fotocamere, current }: FilterBarProps) {
 
       <div className="flex flex-wrap gap-3">
         {/* Formato */}
-        <div className="flex items-center gap-1 rounded-lg border border-gray-200 bg-white p-1">
+        <div className="flex items-center gap-1 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-1">
           {(["", "135", "120"] as const).map((f) => (
             <button
               key={f || "tutti"}
               onClick={() => push({ formato: f })}
               className={`rounded-md px-3 py-1 text-sm font-medium transition ${
                 (current.formato ?? "") === f
-                  ? "bg-gray-900 text-white"
-                  : "text-gray-600 hover:bg-gray-100"
+                  ? "bg-gray-900 dark:bg-white text-white dark:text-gray-900"
+                  : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
               }`}
             >
               {f === "" ? "Tutti" : `${f}mm`}
@@ -113,7 +111,7 @@ export function FilterBar({ pellicole, fotocamere, current }: FilterBarProps) {
           <select
             value={current.pellicola ?? ""}
             onChange={(e) => push({ pellicola: e.target.value })}
-            className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-700 outline-none focus:border-gray-400"
+            className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-1.5 text-sm text-gray-700 dark:text-gray-200 outline-none focus:border-gray-400"
           >
             <option value="">Tutte le pellicole</option>
             {pellicole.map((p) => (
@@ -129,7 +127,7 @@ export function FilterBar({ pellicole, fotocamere, current }: FilterBarProps) {
           <select
             value={current.fotocamera ?? ""}
             onChange={(e) => push({ fotocamera: e.target.value })}
-            className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-700 outline-none focus:border-gray-400"
+            className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-1.5 text-sm text-gray-700 dark:text-gray-200 outline-none focus:border-gray-400"
           >
             <option value="">Tutte le fotocamere</option>
             {fotocamere.map((c) => (
@@ -146,15 +144,15 @@ export function FilterBar({ pellicole, fotocamere, current }: FilterBarProps) {
             type="date"
             value={current.dataFrom ?? ""}
             onChange={(e) => push({ dataFrom: e.target.value })}
-            className="rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-sm text-gray-700 outline-none focus:border-gray-400"
+            className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200 outline-none focus:border-gray-400"
             title="Data da"
           />
-          <span className="text-gray-400 text-sm">→</span>
+          <span className="text-gray-400 dark:text-gray-500 text-sm">→</span>
           <input
             type="date"
             value={current.dataTo ?? ""}
             onChange={(e) => push({ dataTo: e.target.value })}
-            className="rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-sm text-gray-700 outline-none focus:border-gray-400"
+            className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200 outline-none focus:border-gray-400"
             title="Data a"
           />
         </div>
@@ -163,7 +161,7 @@ export function FilterBar({ pellicole, fotocamere, current }: FilterBarProps) {
         <select
           value={current.sort ?? "data_desc"}
           onChange={(e) => push({ sort: e.target.value })}
-          className="ml-auto rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-700 outline-none focus:border-gray-400"
+          className="ml-auto rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-1.5 text-sm text-gray-700 dark:text-gray-200 outline-none focus:border-gray-400"
         >
           <option value="data_desc">Data ↓</option>
           <option value="data_asc">Data ↑</option>
@@ -174,7 +172,7 @@ export function FilterBar({ pellicole, fotocamere, current }: FilterBarProps) {
         {hasActiveFilters && (
           <button
             onClick={resetFilters}
-            className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-500 hover:bg-gray-100 transition"
+            className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-1.5 text-sm text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
           >
             Azzera filtri
           </button>

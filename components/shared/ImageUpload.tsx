@@ -43,11 +43,11 @@ export function ImageUpload({ currentUrl, uploadAction, label }: ImageUploadProp
           <img
             src={url}
             alt={label}
-            className="max-h-96 max-w-full rounded-lg border border-gray-200 object-contain"
+            className="max-h-96 max-w-full rounded-lg border border-gray-200 dark:border-gray-700 object-contain"
           />
         </div>
       ) : (
-        <div className="mb-3 rounded-lg border border-dashed border-gray-200 py-10 text-center text-sm text-gray-400">
+        <div className="mb-3 rounded-lg border border-dashed border-gray-200 dark:border-gray-700 py-10 text-center text-sm text-gray-400 dark:text-gray-600">
           Nessuna immagine
         </div>
       )}
@@ -64,7 +64,7 @@ export function ImageUpload({ currentUrl, uploadAction, label }: ImageUploadProp
         type="button"
         disabled={loading}
         onClick={() => inputRef.current?.click()}
-        className="text-sm text-gray-500 underline hover:text-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
+        className="text-sm text-gray-500 dark:text-gray-400 underline hover:text-gray-800 dark:hover:text-gray-200 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {loading ? "Caricamento…" : url ? "Cambia immagine" : `Carica ${label}`}
       </button>

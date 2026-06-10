@@ -13,7 +13,7 @@ interface NegativoFormProps {
 }
 
 const inputClass =
-  "w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-100 disabled:bg-gray-50 disabled:text-gray-400";
+  "w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-100 dark:focus:ring-gray-800 disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:text-gray-400 dark:disabled:text-gray-500";
 
 function Field({
   label,
@@ -30,12 +30,12 @@ function Field({
 }) {
   return (
     <div>
-      <label htmlFor={name} className="mb-1 block text-sm font-medium text-gray-700">
+      <label htmlFor={name} className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
         {label}
         {required && <span className="ml-0.5 text-red-500">*</span>}
       </label>
       {children}
-      {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
+      {error && <p className="mt-1 text-xs text-red-600 dark:text-red-400">{error}</p>}
     </div>
   );
 }
@@ -59,7 +59,7 @@ export function NegativoForm({ action, negativo, nextNumero, cancelHref }: Negat
             className={inputClass}
           />
           {isEdit && (
-            <p className="mt-1 text-xs text-gray-400">Il numero fotogramma non è modificabile</p>
+            <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">Il numero fotogramma non è modificabile</p>
           )}
         </Field>
 
@@ -88,17 +88,17 @@ export function NegativoForm({ action, negativo, nextNumero, cancelHref }: Negat
         </div>
       </div>
 
-      <div className="flex items-center gap-3 border-t border-gray-100 pt-6">
+      <div className="flex items-center gap-3 border-t border-gray-100 dark:border-gray-800 pt-6">
         <button
           type="submit"
           disabled={isPending}
-          className="rounded-lg bg-gray-900 px-5 py-2 text-sm font-medium text-white transition hover:bg-gray-700 disabled:opacity-50"
+          className="rounded-lg bg-gray-900 dark:bg-white px-5 py-2 text-sm font-medium text-white dark:text-gray-900 transition hover:bg-gray-700 dark:hover:bg-gray-100 disabled:opacity-50"
         >
           {isPending ? "Salvataggio…" : isEdit ? "Salva modifiche" : "Crea fotogramma"}
         </button>
         <Link
           href={cancelHref}
-          className="rounded-lg border border-gray-200 px-5 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-50"
+          className="rounded-lg border border-gray-200 dark:border-gray-700 px-5 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 transition hover:bg-gray-50 dark:hover:bg-gray-800"
         >
           Annulla
         </Link>

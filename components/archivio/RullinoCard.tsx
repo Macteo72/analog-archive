@@ -12,42 +12,42 @@ export function RullinoCard({ rullino }: RullinoCardProps) {
   return (
     <Link
       href={`/rullino/${rullino.id}`}
-      className="group block rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition hover:border-gray-400 hover:shadow-md"
+      className="group block rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-5 shadow-sm transition hover:border-gray-400 dark:hover:border-gray-500 hover:shadow-md"
     >
       <div className="flex items-start justify-between gap-2">
-        <span className="font-mono text-lg font-bold tracking-tight text-gray-900">
+        <span className="font-mono text-lg font-bold tracking-tight text-gray-900 dark:text-white">
           {rullino.codiceArchivio}
         </span>
-        <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">
+        <span className="rounded-full bg-gray-100 dark:bg-gray-800 px-2 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-300">
           {rullino.formato}mm
         </span>
       </div>
 
-      <div className="mt-2 text-sm font-medium text-gray-800">
+      <div className="mt-2 text-sm font-medium text-gray-800 dark:text-gray-200">
         {rullino.pellicola}
         {rullino.sensibilita ? (
-          <span className="ml-1 font-normal text-gray-500">— {rullino.sensibilita} ISO</span>
+          <span className="ml-1 font-normal text-gray-500 dark:text-gray-400">— {rullino.sensibilita} ISO</span>
         ) : null}
       </div>
 
       {(rullino.fotocamera || rullino.focale) && (
-        <div className="mt-0.5 text-sm text-gray-500">
+        <div className="mt-0.5 text-sm text-gray-500 dark:text-gray-400">
           {[rullino.fotocamera, rullino.focale].filter(Boolean).join(" · ")}
         </div>
       )}
 
-      <div className="mt-3 text-sm text-gray-400">{formatDateFlex(rullino.dataScatti, rullino.dataScattiPrecisione, rullino.dataScattiFine)}</div>
+      <div className="mt-3 text-sm text-gray-400 dark:text-gray-500">{formatDateFlex(rullino.dataScatti, rullino.dataScattiPrecisione, rullino.dataScattiFine)}</div>
 
       {rullino.scene && (
-        <p className="mt-2 line-clamp-2 text-sm text-gray-600">{rullino.scene}</p>
+        <p className="mt-2 line-clamp-2 text-sm text-gray-600 dark:text-gray-400">{rullino.scene}</p>
       )}
 
-      <div className="mt-4 flex items-center gap-3 text-xs text-gray-500">
+      <div className="mt-4 flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
         <span>
           {nFotogrammi} {nFotogrammi === 1 ? "fotogramma" : "fotogrammi"}
         </span>
         {rullino.provinoContatto && (
-          <span className="rounded-full bg-green-50 px-2 py-0.5 text-green-700">
+          <span className="rounded-full bg-green-50 dark:bg-green-900 px-2 py-0.5 text-green-700 dark:text-green-300">
             Provino ✓
           </span>
         )}
