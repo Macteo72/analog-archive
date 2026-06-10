@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Rullino {
+  id               Int        @id @default(autoincrement())
+  codiceArchivio   String     @unique
+  formato          String
+  pellicola        String
+  sensibilita      Int?
+  fotocamera       String?
+  focale           String?
+  dataScatti       DateTime?
+  scene            String?
+  provinoContatto  Boolean    @default(false)
+  prodottoSviluppo String?
+  diluizione       String?
+  tempoSviluppo    String?
+  tempSviluppo     Float?
+  dataSviluppo     DateTime?
+  noteSviluppo     String?
+  negativi         Negativo[]
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+}
+
+model Negativo {
+  id               Int              @id @default(autoincrement())
+  rullinoId        Int
+  rullino          Rullino          @relation(fields: [rullinoId], references: [id], onDelete: Cascade)
+  numeroFotogramma Int
+  scena            String?
+  descrizione      String?
+  scansioneUrl     String?
+  stampe           SessioneStampa[]
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  @@unique([rullinoId, numeroFotogramma])
+}
+
+model SessioneStampa {
+  id               Int      @id @default(autoincrement())
+  negativoId       Int
+  negativo         Negativo @relation(fields: [negativoId], references: [id], onDelete: Cascade)
+  dataStampa       DateTime?
+  carta            String?
+  formatoStampa    String?
+  filtroContrasto  String?
+  aperturaObj      String?
+  tempoEsposizione String?
+  svil_prodotto    String?
+  svil_temp        Float?
+  svil_tempo       String?
+  stop_prodotto    String?
+  stop_temp        Float?
+  stop_tempo       String?
+  fiss_prodotto    String?
+  fiss_temp        Float?
+  fiss_tempo       String?
+  interventi       String?
+  note             String?
+  fotoStampaUrl    String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
