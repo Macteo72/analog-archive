@@ -59,13 +59,8 @@ export async function createRullino(
   _prevState: FormState,
   formData: FormData
 ): Promise<FormState> {
-  const formato = (formData.get("formato") as string) ?? "";
+  const formato = (formData.get("formato") as string) || "135";
   const data = extractFormData(formData);
-
-  const errors: Record<string, string> = {};
-  if (!formato) errors.formato = "Campo obbligatorio";
-  if (!data.pellicola) errors.pellicola = "Campo obbligatorio";
-  if (Object.keys(errors).length > 0) return { errors };
 
   const codiceArchivio = await generateCodiceArchivio(formato);
 
@@ -82,10 +77,6 @@ export async function updateRullino(
   formData: FormData
 ): Promise<FormState> {
   const data = extractFormData(formData);
-
-  const errors: Record<string, string> = {};
-  if (!data.pellicola) errors.pellicola = "Campo obbligatorio";
-  if (Object.keys(errors).length > 0) return { errors };
 
   await prisma.rullino.update({ where: { id }, data });
 
