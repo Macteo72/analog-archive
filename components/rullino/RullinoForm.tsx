@@ -45,7 +45,8 @@ const inputClass =
   "w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-100 disabled:bg-gray-50 disabled:text-gray-400";
 
 export function RullinoForm({ action, rullino, cancelHref }: RullinoFormProps) {
-  const [, formAction, isPending] = useActionState(action, null);
+  const [state, formAction, isPending] = useActionState(action, null);
+  const errors = state?.errors ?? {};
   const isEdit = !!rullino;
 
   return (
@@ -57,11 +58,13 @@ export function RullinoForm({ action, rullino, cancelHref }: RullinoFormProps) {
         </h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {isEdit ? (
-            <Field label="Codice archivio" name="codiceArchivio">
+            <Field label="Codice archivio" name="codiceArchivio" error={errors.codiceArchivio}>
               <input
                 type="text"
-                value={rullino.codiceArchivio}
-                disabled
+                id="codiceArchivio"
+                name="codiceArchivio"
+                defaultValue={rullino.codiceArchivio}
+                placeholder="es. 135/01"
                 className={inputClass}
               />
             </Field>
@@ -75,13 +78,11 @@ export function RullinoForm({ action, rullino, cancelHref }: RullinoFormProps) {
           )}
 
           {isEdit && (
-            <Field label="Formato" name="formato_display">
-              <input
-                type="text"
-                value={`${rullino.formato}mm`}
-                disabled
-                className={inputClass}
-              />
+            <Field label="Formato" name="formato">
+              <select name="formato" id="formato" defaultValue={rullino.formato} className={inputClass}>
+                <option value="135">135mm</option>
+                <option value="120">120</option>
+              </select>
             </Field>
           )}
 

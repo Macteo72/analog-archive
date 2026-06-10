@@ -76,9 +76,21 @@ export async function updateRullino(
   _prevState: FormState,
   formData: FormData
 ): Promise<FormState> {
+  const newCodice = (formData.get("codiceArchivio") as string)?.trim();
+  const formato = (formData.get("formato") as string) || "135";
   const data = extractFormData(formData);
 
-  await prisma.rullino.update({ where: { id }, data });
+  if (newCodice) {
+    const conflict = await prisma.rullino.findFirst({
+      where: { codiceArchivio: newCodice, NOT: { id } },
+    });
+    if (conflict) {
+      return { errors: { codiceArchivio: "Codice già in uso da un altro rullino" } };
+    }
+    await prisma.rullino.update({ where: { id }, data: { ...data, formato, codiceArchivio: newCodice } });
+  } else {
+    await prisma.rullino.update({ where: { id }, data: { ...data, formato } });
+  }
 
   redirect(`/rullino/${id}`);
 }
