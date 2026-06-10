@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getRullinoById } from "@/lib/queries/rullini";
 import { DeleteButton } from "@/components/rullino/DeleteButton";
-import { formatDate } from "@/lib/utils";
+import { formatDateFlex } from "@/lib/utils";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -78,7 +78,7 @@ export default async function SchedaRullinoPage({ params }: PageProps) {
               <Row label="Sensibilità" value={rullino.sensibilita ? `${rullino.sensibilita} ISO` : null} />
               <Row label="Fotocamera" value={rullino.fotocamera} />
               <Row label="Focale" value={rullino.focale} />
-              <Row label="Data scatti" value={formatDate(rullino.dataScatti)} />
+              <Row label="Data scatti" value={formatDateFlex(rullino.dataScatti, rullino.dataScattiPrecisione, rullino.dataScattiFine)} />
               <Row label="Provino a contatto" value={rullino.provinoContatto ? "Sì" : "No"} />
               {rullino.scene && (
                 <div className="pt-1">
@@ -99,7 +99,7 @@ export default async function SchedaRullinoPage({ params }: PageProps) {
               <Row label="Diluizione" value={rullino.diluizione} />
               <Row label="Tempo" value={rullino.tempoSviluppo} />
               <Row label="Temperatura" value={rullino.tempSviluppo != null ? `${rullino.tempSviluppo}°C` : null} />
-              <Row label="Data sviluppo" value={formatDate(rullino.dataSviluppo)} />
+              <Row label="Data sviluppo" value={formatDateFlex(rullino.dataSviluppo, rullino.dataSviluppoPrecisione, rullino.dataSviluppoFine)} />
               {rullino.noteSviluppo && (
                 <div className="pt-1">
                   <dt className="mb-1 text-sm text-gray-400">Note</dt>

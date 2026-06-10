@@ -23,6 +23,17 @@ async function generateCodiceArchivio(formato: string): Promise<string> {
   return `${formato}/${String(maxNum + 1).padStart(2, "0")}`;
 }
 
+function extractDateFlex(formData: FormData, baseName: string) {
+  const dateStr = formData.get(baseName) as string;
+  const precisione = (formData.get(`${baseName}_precisione`) as string) || null;
+  const fineStr = formData.get(`${baseName}Fine`) as string;
+  return {
+    date: dateStr ? new Date(dateStr) : null,
+    precisione,
+    fine: fineStr ? new Date(fineStr) : null,
+  };
+}
+
 function extractFormData(formData: FormData) {
   const get = (key: string) => (formData.get(key) as string) || null;
   const getNum = (key: string) => {
@@ -33,24 +44,27 @@ function extractFormData(formData: FormData) {
     const v = formData.get(key) as string;
     return v ? parseFloat(v) : null;
   };
-  const getDate = (key: string) => {
-    const v = formData.get(key) as string;
-    return v ? new Date(v) : null;
-  };
+
+  const scatti = extractDateFlex(formData, "dataScatti");
+  const sviluppo = extractDateFlex(formData, "dataSviluppo");
 
   return {
     pellicola: (formData.get("pellicola") as string) ?? "",
     sensibilita: getNum("sensibilita"),
     fotocamera: get("fotocamera"),
     focale: get("focale"),
-    dataScatti: getDate("dataScatti"),
+    dataScatti: scatti.date,
+    dataScattiPrecisione: scatti.precisione,
+    dataScattiFine: scatti.fine,
     scene: get("scene"),
     provinoContatto: formData.get("provinoContatto") === "on",
     prodottoSviluppo: get("prodottoSviluppo"),
     diluizione: get("diluizione"),
     tempoSviluppo: get("tempoSviluppo"),
     tempSviluppo: getFloat("tempSviluppo"),
-    dataSviluppo: getDate("dataSviluppo"),
+    dataSviluppo: sviluppo.date,
+    dataSviluppoPrecisione: sviluppo.precisione,
+    dataSviluppoFine: sviluppo.fine,
     noteSviluppo: get("noteSviluppo"),
   };
 }

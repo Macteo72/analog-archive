@@ -16,14 +16,18 @@ model Rullino {
   sensibilita      Int?
   fotocamera       String?
   focale           String?
-  dataScatti       DateTime?
+  dataScatti            DateTime?
+  dataScattiPrecisione  String?
+  dataScattiFine        DateTime?
   scene            String?
   provinoContatto  Boolean    @default(false)
   prodottoSviluppo String?
   diluizione       String?
   tempoSviluppo    String?
   tempSviluppo     Float?
-  dataSviluppo     DateTime?
+  dataSviluppo            DateTime?
+  dataSviluppoPrecisione  String?
+  dataSviluppoFine        DateTime?
   noteSviluppo     String?
   negativi         Negativo[]
   createdAt        DateTime   @default(now())

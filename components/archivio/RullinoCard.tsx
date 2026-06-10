@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { formatDate } from "@/lib/utils";
+import { formatDateFlex } from "@/lib/utils";
 import type { Rullino } from "@prisma/client";
 
 interface RullinoCardProps {
@@ -36,7 +36,7 @@ export function RullinoCard({ rullino }: RullinoCardProps) {
         </div>
       )}
 
-      <div className="mt-3 text-sm text-gray-400">{formatDate(rullino.dataScatti)}</div>
+      <div className="mt-3 text-sm text-gray-400">{formatDateFlex(rullino.dataScatti, rullino.dataScattiPrecisione, rullino.dataScattiFine)}</div>
 
       {rullino.scene && (
         <p className="mt-2 line-clamp-2 text-sm text-gray-600">{rullino.scene}</p>

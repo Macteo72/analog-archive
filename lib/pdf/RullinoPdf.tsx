@@ -1,5 +1,5 @@
 import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
-import { formatDate } from "@/lib/utils";
+import { formatDateFlex } from "@/lib/utils";
 import type { getRullinoForPdf } from "@/lib/queries/pdf";
 
 type RullinoData = NonNullable<Awaited<ReturnType<typeof getRullinoForPdf>>>;
@@ -85,9 +85,13 @@ const s = StyleSheet.create({
   footerText: { fontSize: 7, color: C.label },
 });
 
-function fd(d: Date | null | undefined): string | null {
+function fd(
+  d: Date | null | undefined,
+  prec?: string | null,
+  fine?: Date | null
+): string | null {
   if (!d) return null;
-  return formatDate(d);
+  return formatDateFlex(d, prec, fine);
 }
 
 function R({ l, v }: { l: string; v: string | null | undefined }) {
@@ -137,7 +141,7 @@ export function RullinoPdf({ rullino }: { rullino: RullinoData }) {
               />
               <R l="Fotocamera" v={rullino.fotocamera} />
               <R l="Focale" v={rullino.focale} />
-              <R l="Data scatti" v={fd(rullino.dataScatti)} />
+              <R l="Data scatti" v={fd(rullino.dataScatti, rullino.dataScattiPrecisione, rullino.dataScattiFine)} />
               <R
                 l="Provino a contatto"
                 v={rullino.provinoContatto ? "Sì" : null}
@@ -165,7 +169,7 @@ export function RullinoPdf({ rullino }: { rullino: RullinoData }) {
                     : null
                 }
               />
-              <R l="Data sviluppo" v={fd(rullino.dataSviluppo)} />
+              <R l="Data sviluppo" v={fd(rullino.dataSviluppo, rullino.dataSviluppoPrecisione, rullino.dataSviluppoFine)} />
               {rullino.noteSviluppo ? (
                 <View>
                   <Text style={s.longLbl}>Note</Text>
