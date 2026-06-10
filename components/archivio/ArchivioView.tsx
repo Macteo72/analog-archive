@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { RullinoCard } from "./RullinoCard";
 import { formatDateFlex } from "@/lib/utils";
-import type { Rullino } from "@prisma/client";
+import type { getRullini } from "@/lib/queries/rullini";
 
-type RullinoItem = Rullino & { negativi: { id: number }[] };
+type RullinoItem = Awaited<ReturnType<typeof getRullini>>[number];
 type ViewMode = "card" | "list";
 
 interface ArchivioViewProps {
@@ -75,7 +75,6 @@ export function ArchivioView({ rullini }: ArchivioViewProps) {
         <div className="rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
           <div className="flex items-center gap-4 px-4 py-2 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
             <span className="w-28 shrink-0">Codice</span>
-            <span className="w-14 shrink-0 hidden xs:block">Fmt</span>
             <span className="flex-1">Pellicola</span>
             <span className="hidden sm:block w-36 shrink-0">Fotocamera</span>
             <span className="hidden md:block w-32 shrink-0 text-right">Data scatti</span>
@@ -102,9 +101,6 @@ function RullinoListItem({ rullino }: { rullino: RullinoItem }) {
     >
       <span className="font-mono text-sm font-bold w-28 shrink-0 text-gray-900 dark:text-white truncate">
         {rullino.codiceArchivio}
-      </span>
-      <span className="rounded-full bg-gray-100 dark:bg-gray-800 px-2 py-0.5 text-xs font-medium text-gray-500 dark:text-gray-400 shrink-0 hidden xs:inline-flex">
-        {rullino.formato}mm
       </span>
       <span className="flex-1 min-w-0 text-sm text-gray-800 dark:text-gray-200 truncate">
         {rullino.pellicola || "—"}
