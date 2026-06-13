@@ -46,6 +46,19 @@ export default async function ArchivioPage({ searchParams }: PageProps) {
           </div>
         </div>
 
+        {/* Tab navigation */}
+        <div className="mb-6 flex gap-1 border-b border-gray-200 dark:border-gray-700">
+          <span className="relative px-4 py-2 text-sm font-medium text-gray-900 dark:text-white after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-gray-900 dark:after:bg-white">
+            Negativi
+          </span>
+          <Link
+            href="/stampe"
+            className="px-4 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition"
+          >
+            Stampe
+          </Link>
+        </div>
+
         <Suspense>
           <FilterBar pellicole={pellicole} fotocamere={fotocamere} current={filters} />
         </Suspense>
