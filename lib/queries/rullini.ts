@@ -66,6 +66,22 @@ export async function getRullinoById(id: number) {
   });
 }
 
+export async function getRulliniConNegativi() {
+  return prisma.rullino.findMany({
+    select: {
+      id: true,
+      codiceArchivio: true,
+      pellicola: true,
+      formato: true,
+      negativi: {
+        select: { id: true, numeroFotogramma: true, scena: true },
+        orderBy: { numeroFotogramma: "asc" },
+      },
+    },
+    orderBy: { dataScatti: { sort: "desc", nulls: "last" } },
+  });
+}
+
 export async function getDistinctPellicole() {
   const rows = await prisma.rullino.findMany({
     select: { pellicola: true },

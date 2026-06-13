@@ -37,6 +37,20 @@ function extractStampaData(formData: FormData) {
   };
 }
 
+export async function createStampaFromWizard(
+  _prevState: FormState,
+  formData: FormData
+): Promise<FormState> {
+  const negativoId = parseInt(formData.get("negativoId") as string, 10);
+  const rullinoId = parseInt(formData.get("rullinoId") as string, 10);
+  if (!negativoId || !rullinoId) {
+    return { errors: { _: "Seleziona un rullino e un fotogramma" } };
+  }
+  const data = extractStampaData(formData);
+  const stampa = await prisma.sessioneStampa.create({ data: { ...data, negativoId } });
+  redirect(`/rullino/${rullinoId}/negativo/${negativoId}/stampa/${stampa.id}`);
+}
+
 export async function createStampa(
   negativoId: number,
   rullinoId: number,

@@ -30,12 +30,20 @@ export default async function ArchivioPage({ searchParams }: PageProps) {
       <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
         <div className="mb-5 flex items-center justify-between">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Archivio Negativi</h1>
-          <Link
-            href="/rullino/nuovo"
-            className="rounded-lg bg-gray-900 dark:bg-white px-4 py-2 text-sm font-medium text-white dark:text-gray-900 transition hover:bg-gray-700 dark:hover:bg-gray-100"
-          >
-            + Nuovo rullino
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/stampa/nuova"
+              className="rounded-lg border border-gray-200 dark:border-gray-700 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 transition hover:bg-gray-50 dark:hover:bg-gray-800"
+            >
+              + Nuova stampa
+            </Link>
+            <Link
+              href="/rullino/nuovo"
+              className="rounded-lg bg-gray-900 dark:bg-white px-4 py-2 text-sm font-medium text-white dark:text-gray-900 transition hover:bg-gray-700 dark:hover:bg-gray-100"
+            >
+              + Nuovo rullino
+            </Link>
+          </div>
         </div>
 
         <Suspense>
